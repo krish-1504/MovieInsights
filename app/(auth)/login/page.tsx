@@ -4,6 +4,8 @@ import Link from 'next/link';
 import { GithubIcon } from 'lucide-react';
 import GoogleIcon from "../../../public/google.svg"
 import Image from 'next/image';
+import { signIn } from 'next-auth/react';
+import GitHubSignInButton from '@/app/components/GitHubSignInButton';
 
 export default function Login(){
     return (
@@ -21,12 +23,7 @@ export default function Login(){
                 </div>
 
                 <div className="flex w-full justify-center items-center gap-x-3 mt-6">
-                    <Button variant="outline" size="icon">
-                        <GithubIcon></GithubIcon>
-                    </Button>
-                    <Button variant="outline" size="icon">
-                        <Image src={GoogleIcon} alt='googleicon'></Image>
-                    </Button>
+                    <GitHubSignInButton />
                 </div>
             </form>
         </div>
