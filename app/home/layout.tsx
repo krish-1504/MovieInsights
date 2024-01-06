@@ -9,9 +9,9 @@ export default async function HomeLayout({children}:{children: ReactNode}) {
     //     return redirect("/login")
     // }
     return (
-        <div>
-            {children}
-        </div>
+        <>
+        
+        </>
         
     )
 }
