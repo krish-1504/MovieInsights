@@ -1,6 +1,7 @@
 import { AlignCenter } from "lucide-react";
 import prisma from "../utils/db";
 import { Button } from "@/components/ui/button";
+import MovieButtons from "./MovieButtons";
 
 async function getData(){
     const data = await prisma.movie.findFirst({
@@ -13,6 +14,7 @@ async function getData(){
             duration:true,
             id:true,
             age:true,
+            youtubeString:true,
         },
     });
     return data
@@ -36,8 +38,7 @@ export default async function MovieVideo() {
                 <h1 className="text-white text-4xl md:text-5xl lg:text-6xl font-bold">{data?.title}</h1>
                 <p className="text-white text-lg mt-5 line-clamp-3">{data?.overview}</p>
                 <div className="flex gap-x-3 mt-4">
-                    <Button>Learn More</Button>
-                    <Button>See More</Button>
+                    <MovieButtons age={data?.age as number} duration={data?.duration as number} id={data?.id as number} overview={data?.overview as string} releaseDate={data?.release as number} title={data?.title as string} youtubeUrl={data?.youtubeString as string} key={data?.id}></MovieButtons>
                 </div>
             </div>
         </div>
