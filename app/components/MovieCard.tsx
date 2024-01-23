@@ -5,6 +5,7 @@ import PlayVideoModal from "./PlayVideoModel";
 import { useState } from "react";
 import { addTowatchList, deleteFromWatchList } from "../action";
 import { usePathname } from "next/navigation";
+import Link from "next/link";
 
 interface iAppProps {
     title:string;
@@ -25,7 +26,8 @@ export function MovieCard({movieId,overview,title,watchListId,watchList,youtubeU
     return (
         <>
             <button onClick={() => setOpen(true)}className="-mt-14">
-                <PlayCircle className="h-20 w-20"/>
+                <Link href={"/movie/"+movieId}><PlayCircle className="h-20 w-20"/></Link>
+                
             </button>
 
             <div className="right-5 top-5 absolute z-10">
