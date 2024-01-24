@@ -19,7 +19,7 @@ export default function MovieButtons({age,duration,id,title,releaseDate,overview
     const [open,setOpen] = useState(false);
     return (
         <>
-            <Button onClick={() => setOpen(true)} className="text-lg font-medium">
+            <Button onClick={() => setOpen(true)} className="text-lg font-medium mr-5">
                 <PlayCircle className="mr-2 h-6 w-6" /> Play 
             </Button>
             <Button onClick={() => setOpen(true)} className="text-lg font-medium bg-white/40 hover:bg-white/30 text-white">

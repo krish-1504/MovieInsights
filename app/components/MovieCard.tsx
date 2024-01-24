@@ -21,11 +21,10 @@ interface iAppProps {
 
 
 export function MovieCard({movieId,overview,title,watchListId,watchList,youtubeUrl,year,age,time}: iAppProps) {
-    const [open,setOpen] = useState(false);
     const pathName = usePathname();
     return (
         <>
-            <button onClick={() => setOpen(true)}className="-mt-14">
+            <button className="-mt-14">
                 <Link href={"/movie/"+movieId}><PlayCircle className="h-20 w-20"/></Link>
                 
             </button>
@@ -59,7 +58,6 @@ export function MovieCard({movieId,overview,title,watchListId,watchList,youtubeU
                 </div>
                 <p className="line-clamp-1 text-sm text-gray-200 font-light">{overview}</p>
             </div>
-            <PlayVideoModal youtubeUrl= {youtubeUrl} key={movieId} title={title} overview={overview} state={open} changeState={setOpen} age={age} duration={time} release={year}/>
-        </>
+            </>
     );
 }

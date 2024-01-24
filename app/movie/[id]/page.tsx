@@ -1,11 +1,14 @@
+"use server"
 import MovieBannerImage from "@/app/components/MovieBannerImage";
-import MovieButtons from "@/app/components/MovieButtons";
+import MovieRecommender from "@/app/components/MovieRecommender";
 import prisma from "@/app/utils/db";
+import MovieOverview from "@/app/components/MovieOverview";
 
+// Function to fetch movie data
 async function getData(movieId: number) {
   const data = await prisma?.movie.findUnique({
     where: {
-      id: parseInt(movieId),
+      id: movieId,
     },
     select: {
       title: true,
@@ -14,30 +17,35 @@ async function getData(movieId: number) {
       release: true,
       imageString: true,
       overview: true,
-      youtubeString: true
-
+      youtubeString: true,
     },
   });
   return data;
 }
 
+// MoviePage component
 export default async function MoviePage({ params }: { params: { id: number } }) {
   const { id } = params;
-  const data = await getData(id);
+  const data = await getData(Number(id));
 
   return (
-    <div>
+    <div className="bg-gray-900 text-white">
+      {/* Movie Banner */}
       <MovieBannerImage id={id} />
 
-      <div className="flex gap-x-3 mt-4 ml-8">
-        <MovieButtons age={data?.age as number} duration={data?.duration as number} id={data?.id as number} overview={data?.overview as string} releaseDate={data?.release as number} title={data?.title as string} youtubeUrl={data?.youtubeString as string} key={data?.id}></MovieButtons>
-      </div>
+      {/* Movie Details */}
+      <div className="container mx-auto mt-8">
+        <div className="flex justify-between items-center">
+          <h1 className="text-4xl font-bold">{data?.title}</h1>
+          <div className="text-xl">
+            Age: {data?.age} | Duration: {data?.duration} min | Release: {data?.release}
+          </div>
+        </div>
 
-      <div className="p-8 bg-gradient-to-t from-black via-transparent to-transparent text-white">
-        <h2 className="text-3xl font-bold mb-4">Overview</h2>
-        <p className="text-gray-300">{data?.overview}</p>
+        
+        <MovieOverview overview={data?.overview as string}/>
+        <MovieRecommender></MovieRecommender>
       </div>
-
     </div>
   );
 }

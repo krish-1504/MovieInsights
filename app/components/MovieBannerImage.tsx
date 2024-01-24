@@ -1,10 +1,11 @@
 import Image from "next/image";
 import prisma from "../utils/db";
+import MovieButtons from "./MovieButtons";
 
 async function getData(movieId: number) {
   const data = await prisma?.movie.findUnique({
     where: {
-      id: parseInt(movieId),
+      id: movieId,
     },
     select: {
       title: true,
@@ -12,13 +13,17 @@ async function getData(movieId: number) {
       duration: true,
       release: true,
       imageString: true,
+      id:true,
+      overview:true,
+      youtubeString:true,
+
     },
   });
   return data;
 }
 
 export default async function MovieBannerImage({ id }: { id: number }) {
-  const data = await getData(id);
+  const data = await getData(Number(id));
 
   if (!data) {
     // Handle the case when data fetching fails
@@ -34,11 +39,21 @@ export default async function MovieBannerImage({ id }: { id: number }) {
             width={1920}
             height={1080}
             alt="movieimg"
-            className="w-full h-[65vh] object-cover rounded-lg shadow-lg"
+            className="w-full h-[75vh] object-cover rounded-lg shadow-lg"
             />
-            <div className="absolute bottom-0 left-0 p-6 pb-3 text-white w-full">
-                <h1 className="text-4xl font-extrabold">{data?.title}</h1>
-                <p className="text-xl pt-5">{`${data?.duration} min | ${data?.age}+ | Released ${data?.release}`}</p>
+            
+            <div className="absolute bottom-3 left-7 p-6 pb-3 text-white w-full">
+                {/* Movie Buttons */}
+                  <MovieButtons
+                    age={data?.age as number}
+                    duration={data?.duration as number}
+                    id={data?.id as number}
+                    overview={data?.overview as string}
+                    releaseDate={data?.release as number}
+                    title={data?.title as string}
+                    youtubeUrl={data?.youtubeString as string}
+                    key={data?.id}
+                  />
             </div>
       </div>
       
