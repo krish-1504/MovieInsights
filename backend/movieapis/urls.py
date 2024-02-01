@@ -16,9 +16,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
+from . import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('',include('movie_recommender.urls')),
-    path('api/v1/',include('movieapis.urls'))
+    path('img/<int:movie_id>', views.movie_img,name='movieimage'),
+    path('vid/<int:movie_id>',views.movie_vid,name="movievideo")
 ]
