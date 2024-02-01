@@ -19,5 +19,5 @@ from django.urls import path,include
 from . import views
 
 urlpatterns = [
-    path('recommend/<int:movie_id>', views.movie_recommend,name='movie_recommend'),
+    path('<int:movie_id>', views.movie_recommend,name='movie_recommend'),
 ]
