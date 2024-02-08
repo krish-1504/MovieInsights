@@ -3,24 +3,42 @@ import MovieBannerImage from "@/app/components/MovieBannerImage";
 import MovieRecommender from "@/app/components/MovieRecommender";
 import prisma from "@/app/utils/db";
 import MovieOverview from "@/app/components/MovieOverview";
+import axios from "axios";
 
-// Function to fetch movie data
 async function getData(movieId: number) {
-  const data = await prisma?.movie.findUnique({
-    where: {
-      id: movieId,
-    },
-    select: {
-      title: true,
-      age: true,
-      duration: true,
-      release: true,
-      imageString: true,
-      overview: true,
-      youtubeString: true,
-    },
+  const data = await prisma.movie.findFirst({
+      where: {
+          id: movieId,
+      },
+      select: {
+          id: true,
+          title: true,
+          overview: true,
+          release_date: true, // Assuming 'release_date' corresponds to 'release' in your new schema
+          runtime: true, // Assuming 'runtime' corresponds to 'duration' in your new schema
+          // Add more fields as needed based on your new schema
+      },
   });
+
   return data;
+}
+
+
+async function getMediaData(movieID:number){
+  // Fetch image URLs from Django backend
+  const imgResponse = await axios.get(`http://127.0.0.1:8000/api/v1/img/${movieID}`);
+  const imgUrls: string[] = imgResponse.data.image_urls;
+  const firstImgUrl: string = imgUrls[0];
+
+  // Fetch video URLs from Django backend
+  const vidResponse = await axios.get(`http://127.0.0.1:8000/api/v1/vid/${movieID}`);
+  const vidUrls: string[] = vidResponse.data.video_urls;
+  const firstVidUrl: string = vidUrls[0];
+
+  console.log(firstImgUrl);
+  console.log(firstVidUrl);
+  return { firstImageUrl: firstImgUrl, firstVideoUrl: firstVidUrl };
+
 }
 
 // MoviePage component
@@ -38,7 +56,7 @@ export default async function MoviePage({ params }: { params: { id: number } }) 
         <div className="flex justify-between items-center">
           <h1 className="text-4xl font-bold">{data?.title}</h1>
           <div className="text-xl">
-            Age: {data?.age} | Duration: {data?.duration} min | Release: {data?.release}
+            Duration: {data?.runtime} min | Release: {data?.release_date?.toLocaleDateString()}
           </div>
         </div>
 

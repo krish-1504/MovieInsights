@@ -6,13 +6,12 @@ interface iAppProps {
     youtubeUrl: string;
     state: boolean;
     changeState: any;
-    release: number;
-    age: number;
+    release: Date;
     duration: number
 }
 
 
-export default function PlayVideoModal({changeState,title,overview,youtubeUrl,state,age,duration,release} : iAppProps) {
+export default function PlayVideoModal({changeState,title,overview,youtubeUrl,state,duration,release} : iAppProps) {
     return (
         <div>
             <Dialog open={state} onOpenChange={() => changeState(!state)}>
@@ -21,9 +20,9 @@ export default function PlayVideoModal({changeState,title,overview,youtubeUrl,st
                         <DialogTitle>{title}</DialogTitle>
                         <DialogDescription className="line-clamp-3">{overview}</DialogDescription>
                         <div className="flex gap-x-2 items-center">
-                            <p>{release}</p>
-                            <p className="border py-0.5 px-1 border-gray-200 rounded">{age}+</p>
-                            <p>{duration}h</p>
+                            <p className="border py-0.5 px-1 border-gray-200 rounded">{release.toLocaleDateString()}</p>
+                            {/* <p className="border py-0.5 px-1 border-gray-200 rounded">{age}+</p> */}
+                            <p className="border py-0.5 px-1 border-gray-200 rounded">{duration}Min</p>
                         </div>
                     </DialogHeader>
                     <iframe src={youtubeUrl} height={250} className="w-full"></iframe>
