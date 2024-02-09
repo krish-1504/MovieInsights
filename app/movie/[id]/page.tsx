@@ -62,7 +62,7 @@ export default async function MoviePage({ params }: { params: { id: number } }) 
 
         
         <MovieOverview overview={data?.overview as string}/>
-        <MovieRecommender></MovieRecommender>
+        <MovieRecommender movieId={data.id}></MovieRecommender>
       </div>
     </div>
   );
