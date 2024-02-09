@@ -7,26 +7,23 @@ import { authOptions } from "../utils/auth";
 import axios from "axios";
 
 async function getData() {
-    const data = await prisma.movie.findMany({
+    let data = await prisma.movie.findMany({
         select: {
             id: true,
             title: true,
             overview: true,
-            release_date: true, // Assuming 'release_date' corresponds to 'release' in your new schema
-            runtime: true, // Assuming 'runtime' corresponds to 'duration' in your new schema
-            // Add more fields as needed based on your new schema
+            release_date: true,
+            runtime: true,
         },
-        where: {
-            release_date: {
-                not: null
-            }
-        },
-        take: 4,
-        orderBy:{
-            release_date:'desc',
-        }
+        take: 1000, 
     });
+
     console.log(data);
+    data = data.sort(() => Math.random() - 0.5);
+
+    // Select the first four items from the shuffled array
+    data = data.slice(0, 4);
+
 
     const movieData = await Promise.all(data.map(async (movie) => {
         const mediaData = await getMediaData(movie.id);
@@ -51,7 +48,7 @@ async function getMediaData(movieID: number) {
 }
 
 
-export default async function RecentlyAdded (){
+export default async function AllMovies (){
     const session = await getServerSession(authOptions);
     const data = await getData()
     return (

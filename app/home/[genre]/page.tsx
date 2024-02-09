@@ -51,19 +51,16 @@ async function getData(category : string,userId: string){
                     overview: true,
                     release_date: true,
                     runtime: true,
-                    // Add more fields as needed
                 },
-                take: 100, // Fetch a larger set
-                orderBy: {
-                    // Order randomly
-                    _random: {
-                        // A fixed seed value
-                        _seed: 1234,
-                    },
-                },
+                take: 1000, 
             });
 
-            data = data.slice(0, 4);
+            console.log(data);
+            data = data.sort(() => Math.random() - 0.5);
+
+            // Select the first four items from the shuffled array
+            data = data.slice(0, 12);
+
         
             const movieData = await Promise.all(data.map(async (movie) => {
                 const mediaData = await getMediaData(movie.id);
@@ -82,8 +79,17 @@ async function getData(category : string,userId: string){
                     runtime: true, // Assuming 'runtime' corresponds to 'duration' in your new schema
                     // Add more fields as needed based on your new schema
                 },
-                take: 10,
+                where: {
+                    release_date: {
+                        not: null
+                    }
+                },
+                take: 12,
+                orderBy:{
+                    release_date:'desc',
+                }
             });
+            console.log(data);
         
             const movieData = await Promise.all(data.map(async (movie) => {
                 const mediaData = await getMediaData(movie.id);

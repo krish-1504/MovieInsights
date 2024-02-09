@@ -8,15 +8,19 @@ import axios from "axios";
 
 async function getData() {
     const data = await prisma.movie.findFirst({
+        where: {
+            id: 1930
+        },
         select: {
             title: true,
             overview: true,
-            release_date: true, // Assuming 'release_date' corresponds to 'release' in your new schema
-            runtime: true, // Assuming 'runtime' corresponds to 'duration' in your new schema
+            release_date: true,
+            runtime: true,
             id: true,
             // Add more fields as needed based on your new schema
-        },
+        }
     });
+    
     return data;
 }
 
@@ -40,7 +44,7 @@ async function getMediaData(movieID:number){
 
 export default async function MovieVideo() {
     const data = await getData();
-    const mediaData = await getMediaData(data?.id as number);
+    const mediaData = await getMediaData(1930);
     return (
         <div className="h-[55vh] lg:h-[60vh] w-full flex justify-start items-center">
             <video
