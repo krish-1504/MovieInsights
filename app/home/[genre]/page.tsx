@@ -44,17 +44,26 @@ async function getData(category : string,userId: string){
         //     return data;
         // }
         case 'movies':{
-            const data = await prisma.movie.findMany({
+            let data = await prisma.movie.findMany({
                 select: {
                     id: true,
                     title: true,
                     overview: true,
-                    release_date: true, // Assuming 'release_date' corresponds to 'release' in your new schema
-                    runtime: true, // Assuming 'runtime' corresponds to 'duration' in your new schema
-                    // Add more fields as needed based on your new schema
+                    release_date: true,
+                    runtime: true,
+                    // Add more fields as needed
                 },
-                take: 10,
+                take: 100, // Fetch a larger set
+                orderBy: {
+                    // Order randomly
+                    _random: {
+                        // A fixed seed value
+                        _seed: 1234,
+                    },
+                },
             });
+
+            data = data.slice(0, 4);
         
             const movieData = await Promise.all(data.map(async (movie) => {
                 const mediaData = await getMediaData(movie.id);
