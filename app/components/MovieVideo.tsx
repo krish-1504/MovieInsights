@@ -9,7 +9,7 @@ import axios from "axios";
 async function getData() {
     const data = await prisma.movie.findFirst({
         where: {
-            id: 1930
+            id: 559
         },
         select: {
             title: true,
@@ -44,7 +44,7 @@ async function getMediaData(movieID:number){
 
 export default async function MovieVideo() {
     const data = await getData();
-    const mediaData = await getMediaData(1930);
+    const mediaData = await getMediaData(559);
     return (
         <div className="h-[55vh] lg:h-[60vh] w-full flex justify-start items-center">
             <video
