@@ -34,9 +34,6 @@ async function getMediaData(movieID:number){
     const vidResponse = await axios.get(`http://127.0.0.1:8000/api/v1/vid/${movieID}`);
     const vidUrls: string[] = vidResponse.data.video_urls;
     const firstVidUrl: string = vidUrls[0];
-
-    console.log(firstImgUrl);
-    console.log(firstVidUrl);
     return { firstImageUrl: firstImgUrl, firstVideoUrl: firstVidUrl };
 
 }

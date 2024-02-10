@@ -26,7 +26,6 @@ async function getData() {
             release_date:'desc',
         }
     });
-    console.log(data);
 
     const movieData = await Promise.all(data.map(async (movie) => {
         const mediaData = await getMediaData(movie.id);

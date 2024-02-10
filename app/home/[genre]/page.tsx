@@ -3,6 +3,7 @@ import { authOptions } from "@/app/utils/auth";
 import { getServerSession } from "next-auth";
 import Image from "next/image";
 import axios from "axios";
+import prisma from "@/app/utils/db";
 
 async function getMediaData(movieID: number) {
     // Fetch image URLs from Django backend
@@ -20,29 +21,30 @@ async function getMediaData(movieID: number) {
 
 async function getData(category : string,userId: string){
     switch(category){
-        // case "shows":{
-        //     const data = await prisma?.movie.findMany({
-        //         where: {
-        //             category: 'show'
-        //         },
-        //         select: {
-        //             age:true,
-        //             duration: true,
-        //             id: true,
-        //             title: true,
-        //             release: true,
-        //             imageString: true,
-        //             overview: true,
-        //             youtubeString: true,
-        //             WatchLists: {
-        //                 where: {
-        //                     userId:userId
-        //                 }
-        //             }
-        //         }
-        //     });
-        //     return data;
-        // }
+        case 'list':{
+            let data = await prisma.movie.findMany({
+                select: {
+                    id: true,
+                    title: true,
+                    overview: true,
+                    release_date: true,
+                    runtime: true,
+                },
+                take: 1000, 
+            });
+            data = data.sort(() => Math.random() - 0.5);
+
+            // Select the first four items from the shuffled array
+            data = data.slice(0, 12);
+
+        
+            const movieData = await Promise.all(data.map(async (movie) => {
+                const mediaData = await getMediaData(movie.id);
+                return { ...movie, ...mediaData };
+            }));
+        
+            return movieData;
+        }
         case 'movies':{
             let data = await prisma.movie.findMany({
                 select: {
@@ -54,8 +56,6 @@ async function getData(category : string,userId: string){
                 },
                 take: 1000, 
             });
-
-            console.log(data);
             data = data.sort(() => Math.random() - 0.5);
 
             // Select the first four items from the shuffled array
@@ -89,7 +89,6 @@ async function getData(category : string,userId: string){
                     release_date:'desc',
                 }
             });
-            console.log(data);
         
             const movieData = await Promise.all(data.map(async (movie) => {
                 const mediaData = await getMediaData(movie.id);

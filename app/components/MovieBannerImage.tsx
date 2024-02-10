@@ -2,6 +2,7 @@ import Image from "next/image";
 import prisma from "../utils/db";
 import MovieButtons from "./MovieButtons";
 import axios from "axios";
+import SeedWatchList from "./SeedWatchList";
 
 async function getData(movieId: number) {
   const data = await prisma.movie.findFirst({
@@ -32,9 +33,6 @@ async function getMediaData(movieID:number){
   const vidResponse = await axios.get(`http://127.0.0.1:8000/api/v1/vid/${movieID}`);
   const vidUrls: string[] = vidResponse.data.video_urls;
   const firstVidUrl: string = vidUrls[0];
-
-  console.log(firstImgUrl);
-  console.log(firstVidUrl);
   return { firstImageUrl: firstImgUrl, firstVideoUrl: firstVidUrl };
 
 }
@@ -69,8 +67,18 @@ export default async function MovieBannerImage({ id }: { id: number }) {
                     releaseDate={data?.release_date as Date}
                     title={data?.title as string}
                     youtubeUrl={mediaData?.firstVideoUrl as string}
+                    imageUrl={mediaData?.firstImageUrl as string}
                     key={data?.id}
                   />
+                  {/* <SeedWatchList
+                      duration={duration}
+                      id={id}
+                      title={title}
+                      releaseDate={releaseDate}
+                      overview={overview}
+                      youtubeUrl={youtubeUrl}
+                      imageUrl={imageUrl}
+                  /> */}
             </div>
       </div>
       

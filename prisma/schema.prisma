@@ -57,15 +57,17 @@ model Movie {
   status String?
 }
 
-// model WatchList {
-//   id String @id @default(uuid())
-//   userId String
-
-//   Movie Movie? @relation(fields: [movieId], references: [id])
-//   movieId Int?
-
-
-// }
+model WatchList {
+  id Int @id
+  overview String?
+  release_date DateTime?
+  runtime Int?
+  tagline String?
+  title String
+  status String
+  imgUrl String?
+  vidUrl String?
+}
 
 // model VerificationToken {
 //   identifier String

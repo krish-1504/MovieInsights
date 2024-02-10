@@ -62,9 +62,7 @@ async function getMediaData(movieId: number) {
 
 export default async function MovieRecommender({movieId} : iAppProps) {
     const data = await getids(parseInt(movieId));
-    console.log(data);
     const recommendedMoviesData = await getData(data);
-    console.log(recommendedMoviesData);
     return (
       <>
       <h1 className="text-3xl font-bold mt-10 ">Recommended Movies Like This :</h1>

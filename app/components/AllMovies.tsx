@@ -17,8 +17,6 @@ async function getData() {
         },
         take: 1000, 
     });
-
-    console.log(data);
     data = data.sort(() => Math.random() - 0.5);
 
     // Select the first four items from the shuffled array

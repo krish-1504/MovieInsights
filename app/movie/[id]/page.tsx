@@ -35,8 +35,8 @@ async function getMediaData(movieID:number){
   const vidUrls: string[] = vidResponse.data.video_urls;
   const firstVidUrl: string = vidUrls[0];
 
-  console.log(firstImgUrl);
-  console.log(firstVidUrl);
+  // console.log(firstImgUrl);
+  // console.log(firstVidUrl);
   return { firstImageUrl: firstImgUrl, firstVideoUrl: firstVidUrl };
 
 }
