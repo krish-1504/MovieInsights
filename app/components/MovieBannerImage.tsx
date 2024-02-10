@@ -37,9 +37,25 @@ async function getMediaData(movieID:number){
 
 }
 
+async function getWatchDetails(id: number) {
+  try {
+      const data = await prisma.watchList.findFirst({
+          where: {
+              id: id,
+          },
+      });
+      return !!data; // Convert data to boolean value
+  } catch (error) {
+      console.error("Error fetching watch details:", error);
+      return false; // Return false in case of error
+  }
+}
+
 export default async function MovieBannerImage({ id }: { id: number }) {
   const data = await getData(Number(id));
   const mediaData = await getMediaData(Number(id));
+  let added = await getWatchDetails(Number(id));
+    console.log(added);
 
   if (!data) {
     // Handle the case when data fetching fails
@@ -69,16 +85,8 @@ export default async function MovieBannerImage({ id }: { id: number }) {
                     youtubeUrl={mediaData?.firstVideoUrl as string}
                     imageUrl={mediaData?.firstImageUrl as string}
                     key={data?.id}
+                    inwatchlist={added}
                   />
-                  {/* <SeedWatchList
-                      duration={duration}
-                      id={id}
-                      title={title}
-                      releaseDate={releaseDate}
-                      overview={overview}
-                      youtubeUrl={youtubeUrl}
-                      imageUrl={imageUrl}
-                  /> */}
             </div>
       </div>
       
