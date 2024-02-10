@@ -47,7 +47,7 @@ export default async function MoviePage({ params }: { params: { id: number } }) 
   const data = await getData(Number(id));
 
   return (
-    <div className="bg-gray-900 text-white">
+    <div className="bg-gray-900 text-white h-[100%]">
       {/* Movie Banner */}
       <MovieBannerImage id={id} />
 
