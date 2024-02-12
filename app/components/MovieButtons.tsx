@@ -16,7 +16,6 @@ interface iAppProps {
     title: string;
     releaseDate: Date;
     duration :number;
-    imageUrl:string;
     inwatchlist:boolean;
 }
 
@@ -25,7 +24,7 @@ interface iAppProps {
 
 
 
-export default function MovieButtons({duration,id,title,releaseDate,overview,youtubeUrl,imageUrl,inwatchlist}:iAppProps) {
+export default function MovieButtons({duration,id,title,releaseDate,overview,youtubeUrl,inwatchlist}:iAppProps) {
     const pathName = usePathname();
     const [open,setOpen] = useState(false);
     const [listopen,setlistopen] = useState(false);
@@ -58,7 +57,6 @@ export default function MovieButtons({duration,id,title,releaseDate,overview,you
                                     </Button>
                                 </form>
                             )}
-                {/* <OpenWatchListModel state={listopen} changeState={setlistopen} id={id} inwatchlist={inwatchlist}></OpenWatchListModel> */}
                 <PlayVideoModal state={open} changeState={setOpen} duration={duration} key={id} overview={overview} release={releaseDate} title={title} youtubeUrl={youtubeUrl}/>
         
             </div>

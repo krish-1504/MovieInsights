@@ -55,7 +55,6 @@ export default async function MovieBannerImage({ id }: { id: number }) {
   const data = await getData(Number(id));
   const mediaData = await getMediaData(Number(id));
   let added = await getWatchDetails(Number(id));
-    console.log(added);
 
   if (!data) {
     // Handle the case when data fetching fails
@@ -83,7 +82,6 @@ export default async function MovieBannerImage({ id }: { id: number }) {
                     releaseDate={data?.release_date as Date}
                     title={data?.title as string}
                     youtubeUrl={mediaData?.firstVideoUrl as string}
-                    imageUrl={mediaData?.firstImageUrl as string}
                     key={data?.id}
                     inwatchlist={added}
                   />
