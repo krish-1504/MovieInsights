@@ -8,15 +8,15 @@ import axios from "axios";
 async function getData(movieId: number) {
   const data = await prisma.movie.findFirst({
       where: {
-          id: (movieId?movieId:19995),
+          id: movieId,
       },
       select: {
           id: true,
           title: true,
           overview: true,
-          release_date: true, // Assuming 'release_date' corresponds to 'release' in your new schema
-          runtime: true, // Assuming 'runtime' corresponds to 'duration' in your new schema
-          // Add more fields as needed based on your new schema
+          release_date: true,
+          runtime: true, 
+
       },
   });
 
@@ -34,16 +34,12 @@ async function getMediaData(movieID:number){
   const vidResponse = await axios.get(`http://127.0.0.1:8000/api/v1/vid/${movieID}`);
   const vidUrls: string[] = vidResponse.data.video_urls;
   const firstVidUrl: string = vidUrls[0];
-
-  // console.log(firstImgUrl);
-  // console.log(firstVidUrl);
   return { firstImageUrl: firstImgUrl, firstVideoUrl: firstVidUrl };
 
 }
 
 // MoviePage component
 export default async function MoviePage({ params }: { params: { id: number } }) {
-  console.log(params);
   const { id } = params;
   const data = await getData(Number(id));
 

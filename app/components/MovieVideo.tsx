@@ -1,6 +1,4 @@
-import { AlignCenter } from "lucide-react";
 import prisma from "../utils/db";
-import { Button } from "@/components/ui/button";
 import MovieButtons from "./MovieButtons";
 import axios from "axios";
 
@@ -11,10 +9,10 @@ async function getWatchDetails(id: number) {
                 id: id,
             },
         });
-        return !!data; // Convert data to boolean value
+        return !!data; 
     } catch (error) {
         console.error("Error fetching watch details:", error);
-        return false; // Return false in case of error
+        return false; 
     }
   }
 
@@ -31,7 +29,6 @@ async function getData() {
             release_date: true,
             runtime: true,
             id: true,
-            // Add more fields as needed based on your new schema
         }
     });
     

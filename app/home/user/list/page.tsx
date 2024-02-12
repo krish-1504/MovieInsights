@@ -1,6 +1,4 @@
 import { MovieCard } from "@/app/components/MovieCard";
-import { authOptions } from "@/app/utils/auth";
-import { getServerSession } from "next-auth";
 import Image from "next/image";
 import axios from "axios";
 import prisma from "@/app/utils/db";
@@ -75,7 +73,6 @@ async function getWatchListIds() {
 
 export default async function CategoryPage(){
     const data = await getWholeWatchList();
-    console.log(data);
     return (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 px-5 sm:px-0 mt-10 gap-6">
             {data?.map((movie)=>(

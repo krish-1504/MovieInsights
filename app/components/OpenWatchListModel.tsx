@@ -1,9 +1,6 @@
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button"
-import { InfoIcon, PlayCircle } from "lucide-react"
-import prisma from "../utils/db";
-import axios from "axios";
-import { addTowatchlist, deleteFromWatchlist } from "../actions";
+import { InfoIcon} from "lucide-react"
 import { usePathname } from "next/navigation";
 
 interface iAppProps {
@@ -17,7 +14,6 @@ interface iAppProps {
 
 export default function OpenWatchListModel({state,changeState,id,inwatchlist}:iAppProps){
     const pathName = usePathname();
-    console.log(pathName);
     return (
         <div>
             <Dialog open={state} onOpenChange={() => changeState(!state)}>

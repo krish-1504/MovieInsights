@@ -4,9 +4,6 @@ import { Button } from "@/components/ui/button"
 import { InfoIcon, PlayCircle } from "lucide-react"
 import { useState } from "react"
 import PlayVideoModal from "./PlayVideoModel";
-import prisma from "../utils/db";
-import SeedWatchList from "./SeedWatchList";
-import OpenWatchListModel from "./OpenWatchListModel";
 import { usePathname } from "next/navigation";
 import { addTowatchlist , deleteFromWatchlist } from "../actions";
 interface iAppProps {
@@ -18,11 +15,6 @@ interface iAppProps {
     duration :number;
     inwatchlist:boolean;
 }
-
-
-
-
-
 
 export default function MovieButtons({duration,id,title,releaseDate,overview,youtubeUrl,inwatchlist}:iAppProps) {
     const pathName = usePathname();

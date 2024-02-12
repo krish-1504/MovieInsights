@@ -2,7 +2,6 @@ import Image from "next/image";
 import prisma from "../utils/db";
 import MovieButtons from "./MovieButtons";
 import axios from "axios";
-import SeedWatchList from "./SeedWatchList";
 
 async function getData(movieId: number) {
   const data = await prisma.movie.findFirst({
@@ -44,10 +43,10 @@ async function getWatchDetails(id: number) {
               id: id,
           },
       });
-      return !!data; // Convert data to boolean value
+      return !!data;
   } catch (error) {
       console.error("Error fetching watch details:", error);
-      return false; // Return false in case of error
+      return false; 
   }
 }
 
@@ -57,7 +56,7 @@ export default async function MovieBannerImage({ id }: { id: number }) {
   let added = await getWatchDetails(Number(id));
 
   if (!data) {
-    // Handle the case when data fetching fails
+
     return <div>Error loading movie data</div>;
   }
 
@@ -74,7 +73,6 @@ export default async function MovieBannerImage({ id }: { id: number }) {
             />
             
             <div className="absolute bottom-3 left-7 p-6 pb-3 text-white w-full">
-                {/* Movie Buttons */}
                   <MovieButtons
                     duration={data?.runtime as number}
                     id={data?.id as number}

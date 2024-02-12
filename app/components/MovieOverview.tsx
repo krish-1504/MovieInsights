@@ -2,10 +2,7 @@
 import { useState } from "react";
 
 export default function MovieOverview({ overview }: { overview: string }) {
-  // State to manage show more/less functionality
   const [showFullOverview, setShowFullOverview] = useState(false);
-
-  // Function to toggle show more/less
   const toggleShowMore = () => {
     setShowFullOverview(!showFullOverview);
   };

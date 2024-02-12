@@ -1,8 +1,6 @@
 import Image from "next/image";
 import prisma from "../utils/db";
 import { MovieCard } from "./MovieCard";
-import { getServerSession } from "next-auth";
-import { authOptions } from "../utils/auth";
 import axios from "axios";
 import MovieOverview from "./MovieOverview";
 
