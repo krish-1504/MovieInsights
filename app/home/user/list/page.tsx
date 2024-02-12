@@ -24,7 +24,6 @@ async function getData(movieId: number) {
             return null;
         }
 
-        // Fetch media data for the movie
         const mediaData = await getMediaData(movieId);
         return { ...movieDetails, ...mediaData };
     } catch (error) {
@@ -35,12 +34,12 @@ async function getData(movieId: number) {
 
 async function getMediaData(movieID: number) {
     try {
-        // Fetch image URLs from Django backend
+
         const imgResponse = await axios.get(`http://127.0.0.1:8000/api/v1/img/${movieID}`);
         const imgUrls: string[] = imgResponse.data.image_urls;
         const firstImgUrl: string = imgUrls.length > 0 ? imgUrls[0] : '';
 
-        // Fetch video URLs from Django backend
+
         const vidResponse = await axios.get(`http://127.0.0.1:8000/api/v1/vid/${movieID}`);
         const vidUrls: string[] = vidResponse.data.video_urls;
         const firstVidUrl: string = vidUrls.length > 0 ? vidUrls[0] : '';
