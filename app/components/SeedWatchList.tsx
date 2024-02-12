@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { InfoIcon } from "lucide-react";
 import prisma from "../utils/db";
+import { useState } from "react";
 
 interface iAppProps {
   overview: string;
@@ -34,6 +35,8 @@ export default async function SeedWatchList({ duration, id, title, releaseDate, 
     }
   }
 
+  const [watchlist,setwatchlist] = useState(false);
+
   return (
 
     <>
@@ -41,6 +44,8 @@ export default async function SeedWatchList({ duration, id, title, releaseDate, 
       <Button  className="text-lg font-medium bg-white/40 hover:bg-white/30 text-white">
         <InfoIcon className="mr-2 h-6 w-6" />Add To Watchlist
       </Button>
+
+      
     </>
   );
 }
