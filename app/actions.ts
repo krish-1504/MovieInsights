@@ -28,7 +28,7 @@ export async function deleteFromWatchlist(formData: FormData){
 
     const data = await prisma.watchList.delete({
         where:{
-            id:movieId,
+            id:Number(movieId),
         }
     });
 

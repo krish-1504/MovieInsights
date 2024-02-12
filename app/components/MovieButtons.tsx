@@ -8,7 +8,7 @@ import prisma from "../utils/db";
 import SeedWatchList from "./SeedWatchList";
 import OpenWatchListModel from "./OpenWatchListModel";
 import { usePathname } from "next/navigation";
-import { addTowatchlist } from "../actions";
+import { addTowatchlist , deleteFromWatchlist } from "../actions";
 interface iAppProps {
     overview:string;
     youtubeUrl:string;
@@ -34,23 +34,34 @@ export default function MovieButtons({duration,id,title,releaseDate,overview,you
     const [remove,setremove] = useState(false);
     return (
         <>
-            <Button onClick={() => setOpen(true)} className="text-lg font-medium mr-5">
-                <PlayCircle className="mr-2 h-6 w-6" /> Play 
-            </Button>
-            <Button onClick={() => setOpen(true)} className="text-lg font-medium bg-white/40 hover:bg-white/30 text-white mr-5">
-                <InfoIcon className="mr-2 h-6 w-6" />Learn More
-            </Button>
-            {!inwatchlist ? (
-                            <form action={addTowatchlist}>
-                                <input type="hidden" name="movieId" value={Number(id)} />
-                                <input type="hidden" name="pathname" value={pathName}/>
-                                <Button className="text-lg font-medium bg-white/40 hover:bg-white/30 text-white">
-                                    <InfoIcon className="mr-2 h-6 w-6" />Add To Watchlist
-                                </Button>
-                            </form>
-                        ):(<h1>hiii</h1>)}
-            {/* <OpenWatchListModel state={listopen} changeState={setlistopen} id={id} inwatchlist={inwatchlist}></OpenWatchListModel> */}
-            <PlayVideoModal state={open} changeState={setOpen} duration={duration} key={id} overview={overview} release={releaseDate} title={title} youtubeUrl={youtubeUrl}/>
-        </>
+            <div className="flex">
+                <Button onClick={() => setOpen(true)} className="text-lg font-medium mr-5">
+                    <PlayCircle className="mr-2 h-6 w-6" /> Play 
+                </Button>
+                <Button onClick={() => setOpen(true)} className="text-lg font-medium bg-white/40 hover:bg-white/30 text-white mr-5">
+                    <InfoIcon className="mr-2 h-6 w-6" />Learn More
+                </Button>
+                {!inwatchlist ? (
+                                <form action={addTowatchlist}>
+                                    <input type="hidden" name="movieId" value={Number(id)} />
+                                    <input type="hidden" name="pathname" value={pathName}/>
+                                    <Button className="text-lg font-medium bg-white/40 hover:bg-white/30 text-white">
+                                        <InfoIcon className="mr-2 h-6 w-6" />Add To Watchlist
+                                    </Button>
+                                </form>
+                            ):(
+                                <form action={deleteFromWatchlist}>
+                                    <input type="hidden" name="movieId" value={Number(id)} />
+                                    <input type="hidden" name="pathname" value={pathName}/>
+                                    <Button className="text-lg font-medium bg-white/40 hover:bg-white/30 text-white">
+                                        <InfoIcon className="mr-2 h-6 w-6" />Remove From Watchlist
+                                    </Button>
+                                </form>
+                            )}
+                {/* <OpenWatchListModel state={listopen} changeState={setlistopen} id={id} inwatchlist={inwatchlist}></OpenWatchListModel> */}
+                <PlayVideoModal state={open} changeState={setOpen} duration={duration} key={id} overview={overview} release={releaseDate} title={title} youtubeUrl={youtubeUrl}/>
+        
+            </div>
+             </>
     )
 }
