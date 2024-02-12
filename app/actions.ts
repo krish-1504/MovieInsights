@@ -2,28 +2,29 @@
 
 import { revalidatePath } from "next/cache";
 import prisma from "./utils/db";
-import { getServerSession } from "next-auth";
-import { authOptions } from "./utils/auth";
 
 export async function addTowatchlist(formData: FormData){
     "use server"
 
     const movieId = formData.get("movieId");
+    console.log("movieis is"+movieId);
     const pathname = formData.get("pathname") as string;
+    console.log(pathname);
     
     const data = await prisma.watchList.create({
         data:{
-            id: Number(movieId),
+            id: Number(movieId)
         },
     });
 
     revalidatePath(pathname);
 }
 
-export default async function deleteFromWatchlist(formData: FormData){
+export async function deleteFromWatchlist(formData: FormData){
     "use server";
     const movieId = formData.get("movieId");
     const pathname = formData.get("pathname") as string;
+    console.log(pathname);
 
     const data = await prisma.watchList.delete({
         where:{

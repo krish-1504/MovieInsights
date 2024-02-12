@@ -8,7 +8,7 @@ import axios from "axios";
 async function getData(movieId: number) {
   const data = await prisma.movie.findFirst({
       where: {
-          id: movieId,
+          id: (movieId?movieId:19995),
       },
       select: {
           id: true,
@@ -43,13 +43,14 @@ async function getMediaData(movieID:number){
 
 // MoviePage component
 export default async function MoviePage({ params }: { params: { id: number } }) {
+  console.log(params);
   const { id } = params;
   const data = await getData(Number(id));
 
   return (
     <div className="bg-gray-900 text-white h-[100%]">
       {/* Movie Banner */}
-      <MovieBannerImage id={id} />
+      <MovieBannerImage id={Number(id)} />
 
       {/* Movie Details */}
       <div className="container mx-auto mt-8">
