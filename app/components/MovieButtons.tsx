@@ -6,6 +6,7 @@ import { useState } from "react"
 import PlayVideoModal from "./PlayVideoModel";
 import prisma from "../utils/db";
 import SeedWatchList from "./SeedWatchList";
+import OpenWatchListModel from "./OpenWatchListModel";
 interface iAppProps {
     overview:string;
     youtubeUrl:string;
@@ -14,7 +15,7 @@ interface iAppProps {
     releaseDate: Date;
     duration :number;
     imageUrl:string;
-    inwatchlist:boolean
+    inwatchlist:boolean;
 }
 
 
@@ -22,8 +23,9 @@ interface iAppProps {
 
 
 
-export default function MovieButtons({duration,id,title,releaseDate,overview,youtubeUrl,imageUrl,added}:iAppProps) {
+export default function MovieButtons({duration,id,title,releaseDate,overview,youtubeUrl,imageUrl,inwatchlist}:iAppProps) {
     const [open,setOpen] = useState(false);
+    const [listopen,setlistopen] = useState(false);
     
     const [add,setadd] = useState(false);
     const [remove,setremove] = useState(false);
@@ -38,14 +40,13 @@ export default function MovieButtons({duration,id,title,releaseDate,overview,you
             <Button onClick={() => setOpen(true)} className="text-lg font-medium bg-white/40 hover:bg-white/30 text-white mr-5">
                 <InfoIcon className="mr-2 h-6 w-6" />Learn More
             </Button>
-            {added && <Button onClick={() => removeFromWatchList(id)} className="text-lg font-medium bg-white/40 hover:bg-white/30 text-white">
+            {inwatchlist && <Button onClick={() => setlistopen(true)} className="text-lg font-medium bg-white/40 hover:bg-white/30 text-white">
                 <InfoIcon className="mr-2 h-6 w-6" />Remove From Watchlist
             </Button>}
-            {!added && <Button onClick={()=>setadd(true)}  className="text-lg font-medium bg-white/40 hover:bg-white/30 text-white">
+            {!inwatchlist && <Button onClick={()=>setlistopen(true)}  className="text-lg font-medium bg-white/40 hover:bg-white/30 text-white">
                 <InfoIcon className="mr-2 h-6 w-6" />Add To Watchlist
             </Button>}
-            
-            <SeedWatchList id={id} state={add}></SeedWatchList>
+            <OpenWatchListModel state={listopen} changeState={setlistopen} id={id} inwatchlist={inwatchlist}></OpenWatchListModel>
             <PlayVideoModal state={open} changeState={setOpen} duration={duration} key={id} overview={overview} release={releaseDate} title={title} youtubeUrl={youtubeUrl}/>
         </>
     )
