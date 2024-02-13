@@ -1,9 +1,9 @@
 import { MovieCard } from "@/app/components/MovieCard";
-import { authOptions } from "@/app/utils/auth";
-import { getServerSession } from "next-auth";
 import Image from "next/image";
 import axios from "axios";
 import prisma from "@/app/utils/db";
+import MovieListPage from "@/app/components/MovieListPage";
+import { getDatas } from "@/app/actions";
 
 async function getMediaData(movieID: number) {
     // Fetch image URLs from Django backend
@@ -19,7 +19,7 @@ async function getMediaData(movieID: number) {
     return { firstImageUrl: firstImgUrl, firstVideoUrl: firstVidUrl };
 }
 
-async function getData(category : string,userId: string){
+async function getData(category : string,offset:number,limit:number){
     switch(category){
         case 'list':{
             let data = await prisma.movie.findMany({
@@ -54,12 +54,13 @@ async function getData(category : string,userId: string){
                     release_date: true,
                     runtime: true,
                 },
-                take: 1000, 
+                skip:40,
+                take: 12,
+                orderBy:{
+                    id:'asc',
+                }
             });
-            data = data.sort(() => Math.random() - 0.5);
-
-            // Select the first four items from the shuffled array
-            data = data.slice(0, 12);
+            
 
         
             const movieData = await Promise.all(data.map(async (movie) => {
@@ -70,32 +71,8 @@ async function getData(category : string,userId: string){
             return movieData;
         }
         case 'recently':{
-            const data = await prisma.movie.findMany({
-                select: {
-                    id: true,
-                    title: true,
-                    overview: true,
-                    release_date: true, // Assuming 'release_date' corresponds to 'release' in your new schema
-                    runtime: true, // Assuming 'runtime' corresponds to 'duration' in your new schema
-                    // Add more fields as needed based on your new schema
-                },
-                where: {
-                    release_date: {
-                        not: null
-                    }
-                },
-                take: 12,
-                orderBy:{
-                    release_date:'desc',
-                }
-            });
-        
-            const movieData = await Promise.all(data.map(async (movie) => {
-                const mediaData = await getMediaData(movie.id);
-                return { ...movie, ...mediaData };
-            }));
-        
-            return movieData;
+            const data = await getDatas(0,8);
+            return data;
         }
 
 
@@ -105,24 +82,13 @@ async function getData(category : string,userId: string){
     }
 }
 
+const Initial_Limit = 12;
 export default async function CategoryPage({params}: {params: {genre: string}}){
-    const session = await getServerSession(authOptions);
-    const data = await getData(params.genre,session?.user?.email as string);
+    const data = await getData(params.genre,0,Initial_Limit);
+    // console.log(data);
     return (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 px-5 sm:px-0 mt-10 gap-6">
-            {data?.map((movie)=>(
-                <div key={movie.id} className="relative h-60">
-                    <Image src={movie.firstImageUrl} alt="movie" width={500} height={400} className="rounded-sm absolute w-full h-full object-cover"/>
-                    <div className="h-60 relative z-10 w-full transform transition duration-500 hover:scale-125 opacity-0 hover:opacity-100">
-                        <div className="bg-gradient-to-b from-transparent via-black/50 to-black z-10 w-full h-full rounded-lg flex items-center justify-center">
-                            <Image src={movie.firstImageUrl} alt="movie" width={800} height={800} className="absolute w-full h-full -z-10 rounded-lg object-cover"/>
-
-                            <MovieCard key={movie.id} movieId={movie.id} overview={movie.overview as string} time={movie.runtime as number} title={movie.title} year={movie.release_date as Date} youtubeUrl={movie.firstVideoUrl} />
-                        </div>
-
-                    </div>
-                </div>
-            ))}
-        </div>
+        <>
+        <MovieListPage initialUser={data}></MovieListPage>
+        </>
     )
 }
