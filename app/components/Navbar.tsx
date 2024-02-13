@@ -5,6 +5,9 @@ import Logo from '../../public/netflix_logo.svg'
 import { usePathname } from "next/navigation";
 import { Bell, Search } from "lucide-react";
 import UserNav from "./UserNav";
+import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
+import { revalidatePath } from "next/cache";
 
 interface linkProps{
     name:string;
@@ -17,8 +20,11 @@ const links: linkProps[] = [
     {name:'Recently Added',href:'/home/recently'},
     {name:"My List",href:"/home/user/list"},
 ]
-export default function Navbar(){
+export default function Navbar({handlenavigation}:{handlenavigation : any}){
     const pathName = usePathname();
+    const handlesearch = ()=>{
+        handlenavigation();
+    }
     return (
         <div className="w-full max-w-7xl mx-auto items-center justify-between px-5 sm:px-6 py-5 lg:px-8 flex">
             <div className="flex items-center">
@@ -47,7 +53,8 @@ export default function Navbar(){
 
             </div>
             <div className="flex items-center gap-x-8">
-                <Search className="w-5 h-5 text-gray-300 cursor-pointer" />
+                <Link href="/home/search"><Search className="w-5 h-5 text-gray-300 cursor-pointer" /></Link>
+                
                 <Bell className="h-5 w-5  text-gray-300 cursor-pointer" />
                 <UserNav />
 

@@ -4,6 +4,9 @@ import axios from "axios";
 import prisma from "@/app/utils/db";
 import MovieListPage from "@/app/components/MovieListPage";
 import { getDatas } from "@/app/actions";
+import SearchDebounce from "@/app/components/SearchDebouncing";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 
 async function getMediaData(movieID: number) {
     // Fetch image URLs from Django backend
@@ -88,7 +91,7 @@ export default async function CategoryPage({params}: {params: {genre: string}}){
     // console.log(data);
     return (
         <>
-        <MovieListPage initialUser={data}></MovieListPage>
+            <MovieListPage initialUser={data}></MovieListPage>
         </>
     )
 }
