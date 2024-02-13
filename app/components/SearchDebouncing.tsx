@@ -27,7 +27,7 @@ export default function SearchDebounce(){
                 setMovies(data);
             }
             
-        },500);
+        },300);
 
         return () =>{
             clearTimeout(delaySearch);
