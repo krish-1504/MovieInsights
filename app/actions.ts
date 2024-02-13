@@ -75,3 +75,32 @@ async function getMediaData(movieID: number) {
 
     return { firstImageUrl: firstImgUrl, firstVideoUrl: firstVidUrl };
 }
+
+export async function getDataSearch(title:string){
+    const data = await prisma.movie.findMany({
+        select: {
+            id: true,
+            title: true,
+            overview: true,
+            release_date: true,
+            runtime: true,
+        },
+        where: {// Filter by release_date not null
+            title: { 
+                contains: title,
+                mode: 'insensitive',
+             }
+        },
+        take: 6,
+        orderBy: {
+            release_date: 'desc',
+        }
+    });
+
+    const movieData = await Promise.all(data.map(async (movie) => {
+        const mediaData = await getMediaData(movie.id);
+        return { ...movie, ...mediaData };
+    }));
+
+    return movieData;
+}
