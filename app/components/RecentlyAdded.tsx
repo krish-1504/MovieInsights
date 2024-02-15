@@ -34,12 +34,12 @@ async function getData() {
 
 async function getMediaData(movieID: number) {
     // Fetch image URLs from Django backend
-    const imgResponse = await axios.get(`http://127.0.0.1:8000/api/v1/img/${movieID}`);
+    const imgResponse = await axios.get(`https://movie-insight-api-6p29.vercel.app/api/v1/img/${movieID}`);
     const imgUrls: string[] = imgResponse.data.image_urls;
     const firstImgUrl: string = imgUrls.length > 0 ? imgUrls[0] : '';
 
     // Fetch video URLs from Django backend
-    const vidResponse = await axios.get(`http://127.0.0.1:8000/api/v1/vid/${movieID}`);
+    const vidResponse = await axios.get(`https://movie-insight-api-6p29.vercel.app/api/v1/vid/${movieID}`);
     const vidUrls: string[] = vidResponse.data.video_urls;
     const firstVidUrl: string = vidUrls.length > 0 ? vidUrls[0] : '';
 
