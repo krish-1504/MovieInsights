@@ -2,8 +2,6 @@
 import Image from "next/image";
 import prisma from "../utils/db";
 import { MovieCard } from "./MovieCard";
-import { getServerSession } from "next-auth";
-import { authOptions } from "../utils/auth";
 import axios from "axios";
 
 async function getData() {
@@ -47,7 +45,6 @@ async function getMediaData(movieID: number) {
 
 
 export default async function AllMovies (){
-    const session = await getServerSession(authOptions);
     const data = await getData()
     return (
         <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 mt-8 gap-6">
