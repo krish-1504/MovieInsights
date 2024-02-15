@@ -67,7 +67,7 @@ export default async function MovieVideo() {
             <div className="absolute w-[90%] lg:w-[40%] mx-auto">
                 <h1 className="text-white text-4xl md:text-5xl lg:text-6xl font-bold">{data?.title}</h1>
                 <p className="text-white text-lg mt-5 line-clamp-3">{data?.overview}</p>
-                <div className="flex gap-x-3 mt-4">
+                <div className="flex gap-x-3 mt-6">
                     <MovieButtons duration={data?.runtime as number} id={data?.id as number} overview={data?.overview as string} releaseDate={data?.release_date as Date} title={data?.title as string} youtubeUrl={mediaData?.firstVideoUrl as string} key={data?.id} inwatchlist={added}></MovieButtons>
                 </div>
             </div>

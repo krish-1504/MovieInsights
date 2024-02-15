@@ -9,7 +9,7 @@ export default function HomePage(){
             <MovieVideo></MovieVideo>
             <h1 className="text-3xl font-bold">Recently Added</h1>
             <RecentlyAdded></RecentlyAdded>
-            <h1 className="text-3xl font-bold mt-10">Movies</h1>
+            <h1 className="text-3xl font-bold mt-12">Movies</h1>
             <AllMovies></AllMovies>
         </div>
         
