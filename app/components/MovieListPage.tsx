@@ -53,7 +53,7 @@ export default function MovieListPage({ initialUser }: { initialUser: Data[] }) 
                     </div>
                 </div>
             ))}
-            <div ref={ref}>
+            <div ref={ref} className="flex item-center justify-center">
                 Loading....
             </div>
             {/* <Button onClick={loadMoreMovies}>Load More Movies</Button> */}
