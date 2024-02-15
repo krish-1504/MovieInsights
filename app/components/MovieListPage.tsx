@@ -29,8 +29,7 @@ export default function MovieListPage({ initialUser }: { initialUser: Data[] }) 
     const {ref , inView} = useInView();
 
     const loadMoreMovies = async () => {
-        // console.log("hiiiiiloaddmovie");
-        const apiMovies = await getDatas(offset, NUMBER_OF_MOVIES);
+        const apiMovies:any = await getDatas(offset, NUMBER_OF_MOVIES);
         setMovies(prevMovies => [...prevMovies, ...apiMovies]);
         setOffset(offset+NUMBER_OF_MOVIES);
     };

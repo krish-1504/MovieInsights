@@ -88,10 +88,9 @@ async function getData(category : string,offset:number,limit:number){
 const Initial_Limit = 12;
 export default async function CategoryPage({params}: {params: {genre: string}}){
     const data = await getData(params.genre,0,Initial_Limit);
-    // console.log(data);
     return (
         <>
-            <MovieListPage initialUser={data}></MovieListPage>
+            <MovieListPage initialUser={data as any}></MovieListPage>
         </>
     )
 }

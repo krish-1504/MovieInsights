@@ -17,8 +17,9 @@ async function getids(movieId:number) {
         return recommendedIds
 }
 
-async function getData(movieIds: number[]) {
+async function getData(movieIds: any[]) {
     const moviesData = [];
+    console.log(movieIds);
 
     for (const movieId of movieIds) {
         const movie = await prisma.movie.findFirst({

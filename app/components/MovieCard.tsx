@@ -14,7 +14,6 @@ interface iAppProps {
 
 
 export function MovieCard({movieId,overview,title,youtubeUrl,year,time}: iAppProps) {
-    const pathName = usePathname();
     return (
         <>
             <button className="-mt-14">

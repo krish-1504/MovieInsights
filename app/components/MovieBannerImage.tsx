@@ -12,9 +12,8 @@ async function getData(movieId: number) {
           id: true,
           title: true,
           overview: true,
-          release_date: true, // Assuming 'release_date' corresponds to 'release' in your new schema
-          runtime: true, // Assuming 'runtime' corresponds to 'duration' in your new schema
-          // Add more fields as needed based on your new schema
+          release_date: true,
+          runtime: true,
       },
   });
 

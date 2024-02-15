@@ -19,10 +19,6 @@ interface iAppProps {
 export default function MovieButtons({duration,id,title,releaseDate,overview,youtubeUrl,inwatchlist}:iAppProps) {
     const pathName = usePathname();
     const [open,setOpen] = useState(false);
-    const [listopen,setlistopen] = useState(false);
-    
-    const [add,setadd] = useState(false);
-    const [remove,setremove] = useState(false);
     return (
         <>
             <div className="flex">
