@@ -23,7 +23,7 @@ export default function SearchDebounce(){
     useEffect(()=>{
         const delaySearch = setTimeout(async ()=>{
             if(search){
-                const data = await getDataSearch(search);
+                const data = await getDataSearch(search) as any;
                 setMovies(data);
             }
             
@@ -47,7 +47,7 @@ export default function SearchDebounce(){
                 <path d="M11.742 10.344a6.5 6.5 0 10-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 001.415-1.414l-3.85-3.85a1.007 1.007 0 00-.115-.1zM12 6.5a5.5 5.5 0 11-11 0 5.5 5.5 0 0111 0z" />
                 </svg></Button>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 px-5 sm:px-0 mt-10 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 px-5 sm:px-0 mt-10 gap-6 h-[70vh]">
             {movies?.map((movie)=>(
                 <div key={movie?.id} className="relative h-60">
                     <Image src={movie?.firstImageUrl as string} alt="movie" width={500} height={400} className="rounded-sm absolute w-full h-full object-cover"/>
