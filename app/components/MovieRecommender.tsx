@@ -9,9 +9,9 @@ interface iAppProps {
 }
 
 async function getids(movieId:number) {
-        // // const idResponse = await axios.get(`http://127.0.0.1:8000/api/v1/recommend/${movieId}`);
+        const idResponse = await axios.get(`http://127.0.0.1:8000/api/v1/recommend/${movieId}`);
         // const idResponse = null;
-        const recommendedIds = ["440", "679", "270938", "602", "7450", "44943", "34851", "11551"];
+        const recommendedIds = idResponse.data.details;
 
 
         
@@ -48,11 +48,11 @@ async function getData(movieIds: any[]) {
 }
 
 async function getMediaData(movieId: number) {
-    const imgResponse = await axios.get(`https://movie-insight-api-6p29.vercel.app/api/v1/img/${movieId}`);
+    const imgResponse = await axios.get(`http://127.0.0.1:8000/api/v1/img/${movieId}`);
     const imgUrls = imgResponse.data.image_urls;
     const firstImgUrl = imgUrls.length > 0 ? imgUrls[0] : '';
 
-    const vidResponse = await axios.get(`https://movie-insight-api-6p29.vercel.app/api/v1/vid/${movieId}`);
+    const vidResponse = await axios.get(`http://127.0.0.1:8000/api/v1/vid/${movieId}`);
     const vidUrls = vidResponse.data.video_urls;
     const firstVidUrl = vidUrls.length > 0 ? vidUrls[0] : '';
 
