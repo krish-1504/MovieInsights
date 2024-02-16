@@ -56,7 +56,7 @@ export default async function AllMovies (){
                         <div className="h-60 relative z-10 w-full tranform duration-500 hover:scale-125 opacity-0 hover:opacity-100">
                             <div className="bg-gradient-to-b from-transparent via-black/50 to-black z-10 w-full h-full rounded-lg flex items-center justify-center border">
                                 <Image src={movie.firstImageUrl} alt="Movie" width={800} height={800} className="absolute w-full h-full -z-10 rounded-lg object-cover"></Image>
-                                <MovieCard movieId={movie.id} overview={movie.overview as string} title={movie.title} youtubeUrl={movie.firstVideoUrl} key={movie.id} time={movie.runtime as number} year={movie.release_date as Date}/>
+                                <MovieCard movieId={movie.id} overview={movie.overview as string} title={movie.title} youtubeUrl={movie.firstVideoUrl} key={movie.id} time={movie.runtime as number} year={movie.release_date?.toLocaleDateString() as string}/>
                             </div>
                         </div>
                     </div>

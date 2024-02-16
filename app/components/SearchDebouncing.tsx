@@ -55,7 +55,7 @@ export default function SearchDebounce(){
                         <div className="bg-gradient-to-b from-transparent via-black/50 to-black z-10 w-full h-full rounded-lg flex items-center justify-center">
                             <Image src={movie?.firstImageUrl as string} alt="movie" width={800} height={800} className="absolute w-full h-full -z-10 rounded-lg object-cover"/>
 
-                            <MovieCard key={movie?.id} movieId={movie?.id as number} overview={movie?.overview as string} time={movie?.runtime as number} title={movie?.title as string} year={movie?.release_date as Date} youtubeUrl={movie?.firstVideoUrl as string} />
+                            <MovieCard key={movie?.id} movieId={movie?.id as number} overview={movie?.overview as string} time={movie?.runtime as number} title={movie?.title as string} year={movie?.release_date.toLocaleDateString() as string} youtubeUrl={movie?.firstVideoUrl as string} />
                         </div>
 
                     </div>
