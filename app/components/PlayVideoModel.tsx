@@ -1,4 +1,6 @@
+import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Link } from "lucide-react";
 
 interface iAppProps {
     title: string;
@@ -25,7 +27,7 @@ export default function PlayVideoModal({changeState,title,overview,youtubeUrl,st
                             <p className="border py-0.5 px-1 border-gray-200 rounded">{duration}Min</p>
                         </div>
                     </DialogHeader>
-                    <iframe src={youtubeUrl} height={250} className="w-full"></iframe>
+                    <Button onClick={() => window.open(youtubeUrl, '_blank')}>Play Video</Button>
                 </DialogContent>
             </Dialog>
         </div>

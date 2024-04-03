@@ -1,11 +1,8 @@
 "use client"
 import { MovieCard } from "@/app/components/MovieCard";
 import Image from "next/image";
-import axios from "axios";
-import prisma from "@/app/utils/db";
 import { useState , useEffect} from "react";
 import { getDatas } from "../actions";
-import { Button } from "@/components/ui/button";
 import { useInView } from 'react-intersection-observer'
 
 
